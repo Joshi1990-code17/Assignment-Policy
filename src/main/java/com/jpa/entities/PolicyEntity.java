@@ -11,17 +11,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Policy")
+@Table(name = "policy")
 public class PolicyEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="policy_id")
+	@Column(name = "policy_id")
 	private int policyid;
 
 	@Column(name = "Type")
@@ -41,13 +42,13 @@ public class PolicyEntity {
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "Customer_id")
-	private CustomerEntity customerentity;
+	private CustomerEntity customer;
 
-//	@OneToMany(mappedBy = "policyEntity")
-//	private List<CoveredDriversEntity> coveredDriversEntity;
-//
-//	@OneToMany(mappedBy = "policyEntity")
-//	private List<CoveredVehiclesEntity> coveredVehiclesEntity;
+	@OneToMany(mappedBy = "policy",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	private List<CoveredDriversEntity> coveredDrivers;
+
+	@OneToMany(mappedBy = "policy",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<CoveredVehiclesEntity> coveredVehicles;
 
 	public int getPolicyid() {
 		return policyid;
@@ -97,28 +98,37 @@ public class PolicyEntity {
 		this.price = price;
 	}
 
-	public CustomerEntity getCustomerentity() {
-		return customerentity;
+	public CustomerEntity getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerentity(CustomerEntity customerentity) {
-		this.customerentity = customerentity;
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
 	}
 
-//	public List<CoveredDriversEntity> getCoveredVehicleEntity() {
-//		return coveredDriversEntity;
-//	}
-//
-//	public void setCoveredVehicleEntity(List<CoveredDriversEntity> coveredDriversEntity) {
-//		this.coveredDriversEntity = coveredDriversEntity;
-//	}
-//
-//	public List<CoveredVehiclesEntity> getCoveredVehiclesEntity() {
-//		return coveredVehiclesEntity;
-//	}
-//
-//	public void setCoveredVehiclesEntity(List<CoveredVehiclesEntity> coveredVehiclesEntity) {
-//		this.coveredVehiclesEntity = coveredVehiclesEntity;
-//	}
+	public List<CoveredDriversEntity> getCoveredDrivers() {
+		return coveredDrivers;
+	}
+
+	public void setCoveredDrivers(List<CoveredDriversEntity> coveredDrivers) {
+		this.coveredDrivers = coveredDrivers;
+	}
+
+	public List<CoveredVehiclesEntity> getCoveredVehicles() {
+		return coveredVehicles;
+	}
+
+	public void setCoveredVehicles(List<CoveredVehiclesEntity> coveredVehicles) {
+		this.coveredVehicles = coveredVehicles;
+	}
+
+	@Override
+	public String toString() {
+		return "PolicyEntity [policyid=" + policyid + ", policytype=" + policytype + ", policynumber=" + policynumber
+				+ ", startdate=" + startdate + ", enddate=" + enddate + ", price=" + price + ", customer=" + customer
+				+ ", coveredDrivers=" + coveredDrivers + ", coveredVehicles=" + coveredVehicles + "]";
+	}
+	
+	
 
 }

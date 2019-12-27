@@ -1,7 +1,10 @@
 package com.jpa.repositories;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +20,29 @@ public class PolicyRepository {
 	
 	@Transactional
 	public void save(PolicyEntity policy) {
-		entityManager.persist(policy);
+		entityManager.merge(policy);
 		
 		
 	}
+	
+	//finding Policy by PolicyNumber:
+	public List<PolicyEntity> findAPolicyByPolicyNo(String PolicyNo) {
+		Query query =entityManager.createQuery("select p from PolicyEntity p where p.policynumber = :policyno");
+		query.setParameter("policyno", PolicyNo);
+		List<PolicyEntity> policyno = (List<PolicyEntity>) query.getResultList();
+		
+		return policyno;
+	}
+	
+	//Finding policy by Id:
+	public PolicyEntity findPolicyById(int policyid) {
+		PolicyEntity policyno = entityManager.find(PolicyEntity.class, policyid);
+		return policyno;
+		
+	}
+	
+	
+	
 
 	public EntityManager getEntityManager() {
 		return entityManager;

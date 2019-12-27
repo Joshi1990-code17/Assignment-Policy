@@ -3,19 +3,20 @@ package com.jpa.repositories;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.jpa.entities.CoveredDriversEntity;
-import com.jpa.entities.CoveredVehiclesEntity;
+import com.jpa.entities.CustomerEntity;
 
 @Repository
-public class DriverVehicleRepository {
+public class CustomerRepository {
 
 	private EntityManager entityManager;
-	
-	public void save(CoveredDriversEntity driver, CoveredVehiclesEntity vehicles) {
-		entityManager.persist(driver);
-		entityManager.persist(vehicles);
+
+	@Transactional
+	public CustomerEntity save(CustomerEntity customer) {
+		return entityManager.merge(customer);
 	}
 
 	public EntityManager getEntityManager() {
@@ -26,5 +27,5 @@ public class DriverVehicleRepository {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	
+
 }

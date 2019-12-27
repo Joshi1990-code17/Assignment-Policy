@@ -8,21 +8,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Address")
+@Table(name = "address")
 public class AddressEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "add_id")
 	private int addressid;
 
 	@Column(name = "Street1")
 	private String street1;
 
-	@Column(name = "Street2")
+	@Column(name = "Stree2")
 	private String street2;
 
 	@Column(name = "City")
@@ -38,8 +40,8 @@ public class AddressEntity {
 	private String type;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
-	private CustomerEntity customerEntity;
+	@JoinColumn(name = "Customer_id")
+	private CustomerEntity customer;
 
 	public int getAddressid() {
 		return addressid;
@@ -97,12 +99,12 @@ public class AddressEntity {
 		this.type = type;
 	}
 
-	public CustomerEntity getCustomerEntity() {
-		return customerEntity;
+	public CustomerEntity getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerEntity(CustomerEntity customerEntity) {
-		this.customerEntity = customerEntity;
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
 	}
 
 }

@@ -8,32 +8,33 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Covered_Driver")
+@Table(name = "covered_driver")
 public class CoveredDriversEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="Name")
+
+	@Column(name = "Name")
 	private String name;
-	
-	@Column(name="LicenseNo")
+
+	@Column(name = "LicenseNo")
 	private String licenseno;
-	
-	@Column(name="LicensedState")
+
+	@Column(name = "LicensedState")
 	private String licensestate;
-	
-	@Column(name="is_active")
+
+	@Column(name = "is_active")
 	private boolean isactive;
-	
-	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@JoinColumn(name="policy_id")
-	private PolicyEntity policyEntity;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "Policy_id")
+	private PolicyEntity policy;
 
 	public int getId() {
 		return id;
@@ -75,16 +76,12 @@ public class CoveredDriversEntity {
 		this.isactive = isactive;
 	}
 
-	public PolicyEntity getPolicyEntity() {
-		return policyEntity;
+	public PolicyEntity getPolicy() {
+		return policy;
 	}
 
-	public void setPolicyEntity(PolicyEntity policyEntity) {
-		this.policyEntity = policyEntity;
+	public void setPolicy(PolicyEntity policy) {
+		this.policy = policy;
 	}
-	
-	
+
 }
-
-
-

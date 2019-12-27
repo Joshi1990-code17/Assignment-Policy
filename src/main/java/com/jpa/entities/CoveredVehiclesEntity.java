@@ -10,11 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Covered_vehicle")
+@Table(name = "covered_vehicle")
 public class CoveredVehiclesEntity {
 
 	@Id
@@ -37,8 +38,8 @@ public class CoveredVehiclesEntity {
 	private boolean isactive;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "policy_id")
-	private PolicyEntity policyEntity;
+	@JoinColumn(name = "Policy_id")
+	private PolicyEntity policy;
 
 	public int getId() {
 		return id;
@@ -88,12 +89,12 @@ public class CoveredVehiclesEntity {
 		this.isactive = isactive;
 	}
 
-	public PolicyEntity getPolicyEntity() {
-		return policyEntity;
+	public PolicyEntity getPolicy() {
+		return policy;
 	}
 
-	public void setPolicyEntity(PolicyEntity policyEntity) {
-		this.policyEntity = policyEntity;
+	public void setPolicy(PolicyEntity policy) {
+		this.policy = policy;
 	}
 
 }

@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Customers")
+@Table(name = "customers")
 public class CustomerEntity {
 
 	@Id
@@ -37,14 +37,14 @@ public class CustomerEntity {
 	@Column(name = "Last_4_SSN")
 	private String last4ssn;
 
-	@Column(name = "Date_of_Birth")
+	@Column(name = "Date_Of_Birth")
 	private Date dateofbirth;
 
-	@OneToMany(mappedBy = "customerentity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "customer",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<PolicyEntity> policies;
 
-	@OneToMany(mappedBy = "customerEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<AddressEntity> addressEntities;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private List<AddressEntity> address;
 
 	public int getId() {
 		return id;
@@ -111,12 +111,12 @@ public class CustomerEntity {
 		this.policies = policies;
 	}
 
-	public List<AddressEntity> getAddressEntities() {
-		return addressEntities;
+	public List<AddressEntity> getAddress() {
+		return address;
 	}
 
-	public void setAddressEntities(List<AddressEntity> addressEntities) {
-		this.addressEntities = addressEntities;
+	public void setAddress(List<AddressEntity> address) {
+		this.address = address;
 	}
 
 }
